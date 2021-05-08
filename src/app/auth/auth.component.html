@@ -1,0 +1,13 @@
+<div class="row justify-content-center align-items-center">
+  <img class="my-4 col-12" src="/assets/ra.svg" alt="" width="72" height="72">
+  <form class="form-signin col-xl-6 col-lg-6 col-md-8">
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus [(ngModel)]="email">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control mt-1" placeholder="Password" required [(ngModel)]="password">
+    <button class="btn btn-md btn-dark btn-block mt-4" type="submit" (click)="onClickSignIn()">Sign in</button>
+  </form>
+</div>
+<div class="row mt-5 justify-content-center">
+  <app-alert class="mt-auto"></app-alert>
+</div>
