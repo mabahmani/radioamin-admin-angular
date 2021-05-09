@@ -24,6 +24,19 @@ export class AuthService {
       ;
   }
 
+  newToken(): Observable<Success<JwtResponse>> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.getRefreshToken()
+      })
+    };
+    return this.http.post<Success<JwtResponse>>(AppUrl.NEW_TOKEN, null, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+      ;
+  }
+
   isAuthenticated(): boolean {
     const accessToken = localStorage.getItem('accessToken');
     return accessToken != null;
@@ -35,6 +48,23 @@ export class AuthService {
 
   getRefreshToken(): string | null {
     return localStorage.getItem('refreshToken');
+  }
+
+  logout(): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.getRefreshToken()
+      })
+    };
+
+    return this.http.post<any>(AppUrl.LOGOUT, null, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  clearLocalStorage(): void{
+    localStorage.clear();
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {

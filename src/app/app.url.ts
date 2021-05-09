@@ -4,5 +4,7 @@ export class AppUrl {
   public static readonly ANONYMOUS = AppUrl.V + '/anonymous';
   public static readonly CONSUMER = AppUrl.V + '/consumer';
   public static readonly LOGIN = AppUrl.ANONYMOUS + '/users/login';
+  public static readonly LOGOUT = AppUrl.ANONYMOUS + '/users/logout';
+  public static readonly NEW_TOKEN = AppUrl.ANONYMOUS + '/users/new-token';
   public static readonly PROFILE = AppUrl.CONSUMER + '/profile';
 }

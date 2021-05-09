@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
     this.userService.getProfile()
       .subscribe(data => {
           const profile = data as Success<Profile>;
+          console.log(profile)
           this.displayName = profile.data.displayName;
           if (profile.data.avatar != null) {
             this.avatarUrl = profile.data.avatar.url;
