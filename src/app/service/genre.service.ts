@@ -2,31 +2,22 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Success} from '../model/success-response';
-import {Profile} from '../model/profile';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class GenreService {
 
   constructor(private http: HttpClient) { }
 
-  getProfile(): Observable<Success<Profile>>{
-    return this.http.get<Success<Profile>>(AppUrl.PROFILE)
+  getGenreCount(): Observable<Success<number>>{
+    return this.http.get<Success<number>>(AppUrl.GENRE_COUNT)
       .pipe(
         catchError(this.handleError)
       );
   }
-
-  getUserCount(): Observable<Success<number>>{
-    return this.http.get<Success<number>>(AppUrl.USER_COUNT)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -42,3 +33,5 @@ export class UserService {
     return throwError(error.error);
   }
 }
+
+
