@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Success} from '../model/success-response';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
 
@@ -12,8 +11,8 @@ export class SingerService {
 
   constructor(private http: HttpClient) { }
 
-  getSingerCount(): Observable<Success<number>>{
-    return this.http.get<Success<number>>(AppUrl.SINGER_COUNT)
+  getSingerCount(): Observable<any>{
+    return this.http.get<any>(AppUrl.SINGER_COUNT)
       .pipe(
         catchError(this.handleError)
       );

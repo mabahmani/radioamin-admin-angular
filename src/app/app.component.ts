@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationStart, ActivatedRoute, NavigationEnd} from '@angular/router';
 import {UserService} from './service/user.service';
-import {Profile} from './model/profile';
-import {Success} from './model/success-response';
 import {ErrorResponse} from './model/error-response';
 
 
@@ -36,12 +34,11 @@ export class AppComponent implements OnInit {
 
   getProfile(): void {
     this.userService.getProfile()
-      .subscribe(data => {
-          const profile = data as Success<Profile>;
-          console.log(profile)
-          this.displayName = profile.data.displayName;
-          if (profile.data.avatar != null) {
-            this.avatarUrl = profile.data.avatar.url;
+      .subscribe((data) => {
+          console.log(data);
+          this.displayName = data.data.displayName;
+          if (data.data.avatar != null) {
+            this.avatarUrl = data.data.avatar.url;
           }
         },
         error => {

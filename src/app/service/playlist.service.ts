@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Success} from '../model/success-response';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
 
@@ -12,8 +11,8 @@ export class PlaylistService {
 
   constructor(private http: HttpClient) { }
 
-  getPlaylistCount(): Observable<Success<number>>{
-    return this.http.get<Success<number>>(AppUrl.PLAYLIST_COUNT)
+  getPlaylistCount(): Observable<any>{
+    return this.http.get<any>(AppUrl.PLAYLIST_COUNT)
       .pipe(
         catchError(this.handleError)
       );

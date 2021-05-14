@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../service/auth.service';
 import {UserRequest} from '../model/user-request';
-import {Success} from '../model/success-response';
 import {ErrorResponse} from '../model/error-response';
-import {JwtResponse} from '../model/jwt-response';
 import {AlertService} from '../service/alert.service';
 import {Router} from '@angular/router';
 
@@ -25,9 +23,8 @@ export class AuthComponent implements OnInit {
   onClickSignIn(): void {
     this.authService.login(new UserRequest(this.email, this.password))
       .subscribe(data => {
-          const response = data as Success<JwtResponse>;
-          localStorage.setItem('accessToken', response.data.accessToken);
-          localStorage.setItem('refreshToken', response.data.refreshToken);
+          localStorage.setItem('accessToken', data.data.accessToken);
+          localStorage.setItem('refreshToken', data.data.refreshToken);
           localStorage.setItem('email', this.email);
           this.router.navigate(['']);
         },

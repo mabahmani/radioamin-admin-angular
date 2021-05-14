@@ -3,8 +3,6 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {AppUrl} from '../app.url';
 import {Observable, throwError} from 'rxjs';
 import {UserRequest} from '../model/user-request';
-import {Success} from '../model/success-response';
-import {JwtResponse} from '../model/jwt-response';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -16,21 +14,21 @@ export class AuthService {
     private http: HttpClient) {
   }
 
-  login(user: UserRequest): Observable<Success<JwtResponse>> {
-    return this.http.post<Success<JwtResponse>>(AppUrl.LOGIN, user)
+  login(user: UserRequest): Observable<any> {
+    return this.http.post<any>(AppUrl.LOGIN, user)
       .pipe(
         catchError(this.handleError)
       )
       ;
   }
 
-  newToken(): Observable<Success<JwtResponse>> {
+  newToken(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.getRefreshToken()
       })
     };
-    return this.http.post<Success<JwtResponse>>(AppUrl.NEW_TOKEN, null, httpOptions)
+    return this.http.post<any>(AppUrl.NEW_TOKEN, null, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

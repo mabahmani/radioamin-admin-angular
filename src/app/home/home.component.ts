@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../service/user.service';
-import {of} from 'rxjs';
 import {MusicService} from '../service/music.service';
 import {SingerService} from '../service/singer.service';
 import {AlbumService} from '../service/album.service';

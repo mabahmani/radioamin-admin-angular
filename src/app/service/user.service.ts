@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Success} from '../model/success-response';
-import {Profile} from '../model/profile';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
-import {UserRequest} from '../model/user-request';
-import {Pageable} from '../model/pageable-response';
-import {UserResponse} from '../model/user-response';
 import {RoleEnum} from '../model/role-enum';
 
 @Injectable({
@@ -17,15 +12,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getProfile(): Observable<Success<Profile>>{
-    return this.http.get<Success<Profile>>(AppUrl.PROFILE)
+  getProfile(): Observable<any>{
+    return this.http.get<any>(AppUrl.PROFILE)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getUserCount(): Observable<Success<number>>{
-    return this.http.get<Success<number>>(AppUrl.USER_COUNT)
+  getUserCount(): Observable<any>{
+    return this.http.get<any>(AppUrl.USER_COUNT)
       .pipe(
         catchError(this.handleError)
       );
@@ -54,7 +49,7 @@ export class UserService {
       params : httpParams
     };
 
-    return this.http.get<Success<UserRequest>>(AppUrl.USERS, options).pipe(
+    return this.http.get<any>(AppUrl.USERS, options).pipe(
       catchError(this.handleError)
     );
   }

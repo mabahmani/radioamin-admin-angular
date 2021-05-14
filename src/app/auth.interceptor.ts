@@ -5,8 +5,6 @@ import {BehaviorSubject, Observable, throwError} from 'rxjs';
 
 import {AuthService} from './service/auth.service';
 import {catchError, filter, switchMap, take} from 'rxjs/operators';
-import {Success} from './model/success-response';
-import {JwtResponse} from './model/jwt-response';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -57,7 +55,7 @@ export class AuthInterceptor implements HttpInterceptor {
       this.refreshTokenSubject.next(null);
 
       return this.authService.newToken().pipe(
-        switchMap((response: Success<JwtResponse>) => {
+        switchMap((response) => {
           this.isRefreshing = false;
           localStorage.setItem('accessToken', response.data.accessToken);
           localStorage.setItem('refreshToken', response.data.refreshToken);
