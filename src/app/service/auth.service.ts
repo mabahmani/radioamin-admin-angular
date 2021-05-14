@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {AppUrl} from '../app.url';
 import {Observable, throwError} from 'rxjs';
-import {User} from '../model/user';
+import {UserRequest} from '../model/user-request';
 import {Success} from '../model/success-response';
 import {JwtResponse} from '../model/jwt-response';
 import {catchError} from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class AuthService {
     private http: HttpClient) {
   }
 
-  login(user: User): Observable<Success<JwtResponse>> {
+  login(user: UserRequest): Observable<Success<JwtResponse>> {
     return this.http.post<Success<JwtResponse>>(AppUrl.LOGIN, user)
       .pipe(
         catchError(this.handleError)

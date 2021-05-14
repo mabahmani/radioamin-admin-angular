@@ -9,13 +9,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {AuthInterceptor} from './auth.interceptor';
 import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     HomeComponent,
-    AlertComponent
+    AlertComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

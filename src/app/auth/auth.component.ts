@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../service/auth.service';
-import {User} from '../model/user';
+import {UserRequest} from '../model/user-request';
 import {Success} from '../model/success-response';
 import {ErrorResponse} from '../model/error-response';
 import {JwtResponse} from '../model/jwt-response';
@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
   }
 
   onClickSignIn(): void {
-    this.authService.login(new User(this.email, this.password))
+    this.authService.login(new UserRequest(this.email, this.password))
       .subscribe(data => {
           const response = data as Success<JwtResponse>;
           localStorage.setItem('accessToken', response.data.accessToken);
