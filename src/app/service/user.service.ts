@@ -26,30 +26,49 @@ export class UserService {
       );
   }
 
-  getUsers(email?: string, role?: RoleEnum, sort?: string, direction?: string, page?: number, size?: number ):
+  getUsers(email?: string, active?: string, role?: string, sort?: string, direction?: string, page?: string, size?: string ):
     Observable<any>{
 
-    const httpParams = new HttpParams();
-    if (email){
-      httpParams.append('email', email);
+    let httpParams = new HttpParams();
+    if (email && email !== ''){
+      httpParams = httpParams.set('email', email);
     }
-    if (role){
-      httpParams.append('role', role.toString());
+
+    if (active && active !== 'null'){
+      httpParams = httpParams.set('active', String(active));
     }
-    if (direction){
-      httpParams.append('direction', direction);
+    if (role && role !== 'null'){
+      httpParams = httpParams.set('role', role);
     }
-    if (page){
-      httpParams.append('page', String(page));
+    if (direction && direction !== 'null'){
+      httpParams = httpParams.set('direction', direction);
     }
-    if (size){
-      httpParams.append('size', String(size));
+    if (page && page !== 'null'){
+      httpParams = httpParams.set('page', page);
+    }
+    if (size && size !== 'null'){
+      httpParams = httpParams.set('size', size);
+    }
+    if (sort && sort !== 'null'){
+      httpParams = httpParams.set('sort', sort);
     }
     const options = {
       params : httpParams
     };
-
+    console.log(httpParams);
     return this.http.get<any>(AppUrl.USERS, options).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  changeUserActivation(active: boolean, userId: number): Observable<any>{
+    return this.http.put(AppUrl.USERS_CHANGE_ACTIVATION + '/' + userId, null).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  setUserRoles(userId: number, roles: Array<any>): Observable<any>{
+    return this.http.put(AppUrl.SET_ROLES + '/' + userId, roles).pipe(
       catchError(this.handleError)
     );
   }

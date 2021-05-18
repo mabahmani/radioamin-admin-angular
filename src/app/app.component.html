@@ -1,6 +1,6 @@
 <div class="container-fluid ">
-  <div class="row">
-    <div class="col-3 col-md-2 col-lg-1 bg-light" style="padding-bottom: 80px">
+  <div class="row" style="padding-bottom: 50px">
+    <div class="col-3 col-md-2 col-lg-1 bg-light">
       <div class="d-flex h-100 min-vh-100 flex-column">
         <div class="p-3  border-bottom">
           <img src="/assets/ra.svg" alt="radioamin" class="img-fluid w-100">
@@ -76,27 +76,29 @@
         <router-outlet></router-outlet>
       </div>
     </div>
+
+    <nav *ngIf="showNavigationAndFooter" class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+      <a href="#" class="d-flex align-items-center justify-content-center text-decoration-none">
+        <img src="{{avatarUrl}}" alt="avatar" width="42" height="42" class="rounded-circle">
+        <div class="d-flex flex-column my-auto ml-2">
+          <p class="text-dark p-0 m-0"><small>{{email}}</small></p>
+          <p class="text-dark p-0 m-0"><small>{{displayName}}</small></p>
+        </div>
+
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse ml-2" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"><small>Logout</small><span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
   </div>
 
-  <nav *ngIf="showNavigationAndFooter" class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
-    <a href="#" class="d-flex align-items-center justify-content-center text-decoration-none">
-      <img src="{{avatarUrl}}" alt="avatar" width="42" height="42" class="rounded-circle">
-      <div class="d-flex flex-column my-auto ml-2">
-        <p class="text-dark p-0 m-0"><small>{{email}}</small></p>
-        <p class="text-dark p-0 m-0"><small>{{displayName}}</small></p>
-      </div>
-
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse ml-2" id="navbarCollapse">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#"><small>Logout</small><span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-    </div>
-  </nav>
 </div>

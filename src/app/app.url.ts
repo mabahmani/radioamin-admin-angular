@@ -23,4 +23,7 @@ export class AppUrl {
   public static readonly PLAYLIST_COUNT = AppUrl.ADMIN + '/playlist/count';
 
   public static readonly USERS = AppUrl.DEVELOPER + '/users';
+  public static readonly USERS_CHANGE_ACTIVATION = AppUrl.DEVELOPER + '/users/changeActivate';
+  public static readonly ROLES = AppUrl.DEVELOPER + '/role';
+  public static readonly SET_ROLES = AppUrl.DEVELOPER + '/users/userRoles';
 }
