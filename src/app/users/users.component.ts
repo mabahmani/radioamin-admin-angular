@@ -27,6 +27,7 @@ export class UsersComponent implements OnInit {
   sort: any;
   active: any;
   direction: any;
+  show: any;
 
   constructor(private userService: UserService, private alertService: AlertService, private roleService: RoleService) {
   }
@@ -39,10 +40,12 @@ export class UsersComponent implements OnInit {
         this.currentPage = response.data.number;
         this.first = response.data.first;
         this.last = response.data.last;
+        this.show = true;
         console.log(response);
       },
       error => {
         try {
+          this.show = false;
           const errorResponse = error as ErrorResponse;
           // tslint:disable-next-line:no-shadowed-variable
           for (const error of errorResponse.errors) {
@@ -123,6 +126,7 @@ export class UsersComponent implements OnInit {
   }
 
   onFilterSize(size: any): void {
+    this.page = null;
     this.size = size;
     this.filter();
   }
@@ -146,10 +150,12 @@ export class UsersComponent implements OnInit {
           this.currentPage = response.data.number;
           this.first = response.data.first;
           this.last = response.data.last;
+          this.show = true;
           console.log(response);
         },
         error => {
           try {
+            this.show = false;
             const errorResponse = error as ErrorResponse;
             // tslint:disable-next-line:no-shadowed-variable
             for (const error of errorResponse.errors) {

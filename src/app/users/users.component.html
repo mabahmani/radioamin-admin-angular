@@ -1,165 +1,172 @@
 
-<div class="row">
-  <div class="col-4">
-    <label class="my-1 mr-2">Email</label>
-    <div class="input-group my-3">
-      <input type="text" #emailFilter class="form-control" placeholder="Find by Email" aria-label="Recipient's username" aria-describedby="button-addon2">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" (click)="onFilterEmail(emailFilter.value)" type="button" id="button-addon2">Find</button>
+<div class="row mt-5 justify-content-center">
+  <app-alert class="mt-auto"></app-alert>
+</div>
+
+<div *ngIf="show">
+  <div class="row">
+    <div class="col-4">
+      <label class="my-1 mr-2">Email</label>
+      <div class="input-group my-3">
+        <input type="text" #emailFilter class="form-control" placeholder="Find by Email" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="onFilterEmail(emailFilter.value)" type="button" id="button-addon2">Find</button>
+        </div>
       </div>
+    </div>
+
+    <div class="col">
+      <label class="my-1 mr-2" for="activeFilter">Active</label>
+      <select class="custom-select my-3 mr-sm-2" #activeFilter id="activeFilter" (change)="onFilterActive(activeFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option [value]="true">Active</option>
+        <option [value]="false">DeActive</option>
+      </select>
+    </div>
+    <div class="col">
+      <label class="my-1 mr-2" for="roleFilter">Role</label>
+      <select class="custom-select my-3 mr-sm-2" #roleFilter id="roleFilter" (change)="onFilterRole(roleFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let role of roles" [value]="role.role" >{{role.role}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label class="my-1 mr-2" for="sortFilter">Sort</label>
+      <select class="custom-select my-3 mr-sm-2" #sortFilter id="sortFilter" (change)="onFilterSort(sortFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let sort of sorts" [value]="sort" >{{sort}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label class="my-1 mr-2" for="directionFilter">Direction</label>
+      <select class="custom-select my-3 mr-sm-2" #directionFilter id="directionFilter" (change)="onFilterDirection(directionFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let direction of directions" [value]="direction" >{{direction}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label class="my-1 mr-2" for="sizeFilter">Size</label>
+      <select class="custom-select my-3 mr-sm-2" #sizeFilter id="sizeFilter" (change)="onFilterSize(sizeFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let size of sizes" [value]="size" >{{size}}</option>
+      </select>
     </div>
   </div>
 
-  <div class="col">
-    <label class="my-1 mr-2" for="activeFilter">Active</label>
-    <select class="custom-select my-3 mr-sm-2" #activeFilter id="activeFilter" (change)="onFilterActive(activeFilter.value)">
-      <option selected [value]="null">Choose...</option>
-      <option [value]="true">Active</option>
-      <option [value]="false">DeActive</option>
-    </select>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr class="text-center">
+        <th scope="col">Id</th>
+        <th scope="col">Avatar</th>
+        <th scope="col" >Email</th>
+        <th scope="col">Active</th>
+        <th scope="col">Registered At</th>
+        <th scope="col">Roles</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Display Name</th>
+        <th scope="col">Bio</th>
+        <!--      <th scope="col">Sessions</th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users" class="text-center">
+        <th scope="row">{{user.id}}</th>
+        <td>
+          <img *ngIf="user.profile != null && user.profile.avatar != null; else defaultAvatar"
+               src="{{user.profile.avatar.url}}" alt="avatar" width="32" height="32" class="rounded-circle">
+          <ng-template #defaultAvatar>
+            <img src="assets/ra.svg" alt="avatar" width="32" height="32" class="rounded-circle"></ng-template>
+        </td>
+        <td><p class="font-weight-light">{{user.email}}</p></td>
+        <td>
+          <p class="text-capitalize">{{user.active}}</p>
+          <a *ngIf="user.active; else activate" [routerLink]="" (click)="changeUserActivation(user)" class="text-decoration-none"><small class="text-danger">Deactivate</small></a>
+          <ng-template #activate>
+            <a [routerLink]="" class="text-decoration-none" (click)="changeUserActivation(user)"><small class="text-info">Activate</small></a>
+          </ng-template>
+        </td>
+        <td><p class="font-weight-lighter">{{user.createdAt | date:'medium'}}</p></td>
+        <td>
+          <div *ngFor="let role of user.userRoles;">
+            <small>
+              {{role.role}}
+            </small>
+          </div>
+          <a [routerLink]="" (click)="onClickSetRoles(user)" class="text-info text-decoration-none" data-toggle="modal" data-target="#setRoleModal">
+            Role +
+          </a>
+        </td>
+        <td>
+          <p *ngIf="user.profile != null && user.profile.firstName != null" class="font-weight-light">
+            {{user.profile.firstName}}
+          </p>
+        </td>
+        <td>
+          <p *ngIf="user.profile != null && user.profile.lastName != null" class="font-weight-light">
+            {{user.profile.lastName}}
+          </p>
+        </td>
+        <td>
+          <p *ngIf="user.profile != null && user.profile.displayName != null" class="font-weight-light">
+            {{user.profile.displayName}}
+          </p>
+        </td>
+        <td>
+          <p *ngIf="user.profile != null && user.profile.bio != null" class="font-weight-light">
+            {{user.profile.bio}}
+          </p>
+        </td>
+        <!--      <td>-->
+        <!--        <div *ngFor="let session of user.sessions">-->
+        <!--          <small>-->
+        <!--            {{session.ip}}-->
+        <!--          </small>-->
+        <!--        </div>-->
+        <!--      </td>-->
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="col">
-    <label class="my-1 mr-2" for="roleFilter">Role</label>
-    <select class="custom-select my-3 mr-sm-2" #roleFilter id="roleFilter" (change)="onFilterRole(roleFilter.value)">
-      <option selected [value]="null">Choose...</option>
-      <option *ngFor="let role of roles" [value]="role.role" >{{role.role}}</option>
-    </select>
-  </div>
-  <div class="col">
-    <label class="my-1 mr-2" for="sortFilter">Sort</label>
-    <select class="custom-select my-3 mr-sm-2" #sortFilter id="sortFilter" (change)="onFilterSort(sortFilter.value)">
-      <option selected [value]="null">Choose...</option>
-      <option *ngFor="let sort of sorts" [value]="sort" >{{sort}}</option>
-    </select>
-  </div>
-  <div class="col">
-    <label class="my-1 mr-2" for="directionFilter">Direction</label>
-    <select class="custom-select my-3 mr-sm-2" #directionFilter id="directionFilter" (change)="onFilterDirection(directionFilter.value)">
-      <option selected [value]="null">Choose...</option>
-      <option *ngFor="let direction of directions" [value]="direction" >{{direction}}</option>
-    </select>
-  </div>
-  <div class="col">
-    <label class="my-1 mr-2" for="sizeFilter">Size</label>
-    <select class="custom-select my-3 mr-sm-2" #sizeFilter id="sizeFilter" (change)="onFilterSize(sizeFilter.value)">
-      <option selected [value]="null">Choose...</option>
-      <option *ngFor="let size of sizes" [value]="size" >{{size}}</option>
-    </select>
-  </div>
-</div>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-    <tr class="text-center">
-      <th scope="col">Id</th>
-      <th scope="col">Avatar</th>
-      <th scope="col" >Email</th>
-      <th scope="col">Active</th>
-      <th scope="col">Registered At</th>
-      <th scope="col">Roles</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Display Name</th>
-      <th scope="col">Bio</th>
-<!--      <th scope="col">Sessions</th>-->
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let user of users" class="text-center">
-      <th scope="row">{{user.id}}</th>
-      <td>
-        <img *ngIf="user.profile != null && user.profile.avatar != null; else defaultAvatar"
-             src="{{user.profile.avatar.url}}" alt="avatar" width="32" height="32" class="rounded-circle">
-        <ng-template #defaultAvatar>
-          <img src="assets/ra.svg" alt="avatar" width="32" height="32" class="rounded-circle"></ng-template>
-      </td>
-      <td><p class="font-weight-light">{{user.email}}</p></td>
-      <td>
-        <p class="text-capitalize">{{user.active}}</p>
-        <a *ngIf="user.active; else activate" [routerLink]="" (click)="changeUserActivation(user)" class="text-decoration-none"><small class="text-danger">Deactivate</small></a>
-        <ng-template #activate>
-          <a [routerLink]="" class="text-decoration-none" (click)="changeUserActivation(user)"><small class="text-info">Activate</small></a>
-        </ng-template>
-      </td>
-      <td><p class="font-weight-lighter">{{user.createdAt | date:'medium'}}</p></td>
-      <td>
-        <div *ngFor="let role of user.userRoles;">
-          <small>
-            {{role.role}}
-          </small>
+  <nav aria-label="..." class="py-5">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="first">
+        <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let item of [].constructor(totalPages); let i = index" class="page-item" [class.active]="i === currentPage" aria-current="page">
+        <span *ngIf="currentPage === i" class="page-link" (click)="onClickPage(i)">{{i + 1}}</span>
+        <a *ngIf="currentPage !== i" class="page-link" (click)="onClickPage(i)"  [routerLink]="" >{{i + 1}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="last">
+        <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="setRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Set Roles</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <a [routerLink]="" (click)="onClickSetRoles(user)" class="text-info text-decoration-none" data-toggle="modal" data-target="#setRoleModal">
-          Role +
-        </a>
-      </td>
-      <td>
-        <p *ngIf="user.profile != null && user.profile.firstName != null" class="font-weight-light">
-          {{user.profile.firstName}}
-        </p>
-      </td>
-      <td>
-        <p *ngIf="user.profile != null && user.profile.lastName != null" class="font-weight-light">
-          {{user.profile.lastName}}
-        </p>
-      </td>
-      <td>
-        <p *ngIf="user.profile != null && user.profile.displayName != null" class="font-weight-light">
-          {{user.profile.displayName}}
-        </p>
-      </td>
-      <td>
-        <p *ngIf="user.profile != null && user.profile.bio != null" class="font-weight-light">
-          {{user.profile.bio}}
-        </p>
-      </td>
-<!--      <td>-->
-<!--        <div *ngFor="let session of user.sessions">-->
-<!--          <small>-->
-<!--            {{session.ip}}-->
-<!--          </small>-->
-<!--        </div>-->
-<!--      </td>-->
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-<nav aria-label="..." class="py-5">
-  <ul class="pagination">
-    <li class="page-item" [class.disabled]="first">
-      <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage - 1)">Previous</a>
-    </li>
-    <li *ngFor="let item of [].constructor(totalPages); let i = index" class="page-item" [class.active]="i === currentPage" aria-current="page">
-      <span *ngIf="currentPage === i" class="page-link" (click)="onClickPage(i)">{{i + 1}}</span>
-      <a *ngIf="currentPage !== i" class="page-link" (click)="onClickPage(i)"  [routerLink]="" >{{i + 1}}</a>
-    </li>
-    <li class="page-item" [class.disabled]="last">
-      <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage + 1)">Next</a>
-    </li>
-  </ul>
-</nav>
-
-<!-- Modal -->
-<div class="modal fade" id="setRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Set Roles</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div *ngFor="let role of roles"  class="form-group form-check">
-          <input type="checkbox" class="form-check-input" (click)="onClickRole(role)" [checked]="userHasRole(role)" id="{{role.id}}">
-          <label class="form-check-label" for="{{role.id}}">{{role.role}}</label>
+        <div class="modal-body">
+          <div *ngFor="let role of roles"  class="form-group form-check">
+            <input type="checkbox" class="form-check-input" (click)="onClickRole(role)" [checked]="userHasRole(role)" id="{{role.id}}">
+            <label class="form-check-label" for="{{role.id}}">{{role.role}}</label>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickSaveRoles()">Save changes</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickSaveRoles()">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
