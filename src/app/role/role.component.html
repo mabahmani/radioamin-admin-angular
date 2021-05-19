@@ -1,0 +1,25 @@
+
+<div class="row mt-5 justify-content-center">
+  <app-alert class="mt-auto"></app-alert>
+</div>
+
+<div *ngIf="show">
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr class="text-center">
+        <th scope="col">Id</th>
+        <th scope="col">Role</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let role of roles" class="text-center">
+        <th scope="row">{{role.id}}</th>
+        <td><p class="font-weight-light">{{role.role}}</p></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -10,6 +10,7 @@ import {AuthInterceptor} from './auth.interceptor';
 import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
 import { UsersComponent } from './users/users.component';
+import { RoleComponent } from './role/role.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UsersComponent } from './users/users.component';
     AuthComponent,
     HomeComponent,
     AlertComponent,
-    UsersComponent
+    UsersComponent,
+    RoleComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@
 
 <div *ngIf="show">
   <div class="row">
-    <div class="col-4">
+    <div class="col-sm col-md-8 col-lg-4">
       <label class="my-1 mr-2">Email</label>
       <div class="input-group my-3">
         <input type="text" #emailFilter class="form-control" placeholder="Find by Email" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-sm">
       <label class="my-1 mr-2" for="activeFilter">Active</label>
       <select class="custom-select my-3 mr-sm-2" #activeFilter id="activeFilter" (change)="onFilterActive(activeFilter.value)">
         <option selected [value]="null">Choose...</option>
@@ -23,28 +23,28 @@
         <option [value]="false">DeActive</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-sm">
       <label class="my-1 mr-2" for="roleFilter">Role</label>
       <select class="custom-select my-3 mr-sm-2" #roleFilter id="roleFilter" (change)="onFilterRole(roleFilter.value)">
         <option selected [value]="null">Choose...</option>
         <option *ngFor="let role of roles" [value]="role.role" >{{role.role}}</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-sm">
       <label class="my-1 mr-2" for="sortFilter">Sort</label>
       <select class="custom-select my-3 mr-sm-2" #sortFilter id="sortFilter" (change)="onFilterSort(sortFilter.value)">
         <option selected [value]="null">Choose...</option>
         <option *ngFor="let sort of sorts" [value]="sort" >{{sort}}</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-sm">
       <label class="my-1 mr-2" for="directionFilter">Direction</label>
       <select class="custom-select my-3 mr-sm-2" #directionFilter id="directionFilter" (change)="onFilterDirection(directionFilter.value)">
         <option selected [value]="null">Choose...</option>
         <option *ngFor="let direction of directions" [value]="direction" >{{direction}}</option>
       </select>
     </div>
-    <div class="col">
+    <div class="col-sm">
       <label class="my-1 mr-2" for="sizeFilter">Size</label>
       <select class="custom-select my-3 mr-sm-2" #sizeFilter id="sizeFilter" (change)="onFilterSize(sizeFilter.value)">
         <option selected [value]="null">Choose...</option>
