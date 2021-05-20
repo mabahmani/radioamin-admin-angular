@@ -1,0 +1,65 @@
+<div class="d-flex flex-column pb-5">
+
+  <div class="div w-100 d-flex justify-content-center">
+
+    <label for="avatarFile">
+
+      <div class="d-flex flex-column bd-highlight">
+        <img src="{{avatarUrl}}" alt="avatar" class="my-3 rounded-circle img-fluid w-100"
+             style=" max-width: 90px; max-height: 90px; min-width: 90px; min-height: 90px;">
+        <div *ngIf="avatarLoading" class="spinner-grow spinner-grow-sm align-self-center" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </label>
+    <input class="form-control" type="file" accept="image/jpeg, image/png" id="avatarFile" hidden (change)="onAvatarSelect($event)">
+
+
+  </div>
+
+  <div class="my-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label font-weight-bold">Email</label>
+    <div class="col-sm-10">
+      <input type="text" readonly disabled class="form-control font-weight-light" id="staticEmail" value="{{email}}">
+    </div>
+  </div>
+
+  <div class="my-3 row">
+    <label for="displayName" class="col-sm-2 col-form-label font-weight-bold">Display Name</label>
+    <div class="col-sm-10">
+      <input [ngModel]="displayName" (ngModelChange)="displayName = $event" type="text"
+             class="form-control font-weight-light" id="displayName" value="{{displayName}}">
+    </div>
+  </div>
+
+  <div class="my-3 row">
+    <label for="firstName" class="col-sm-2 col-form-label font-weight-bold">First Name</label>
+    <div class="col-sm-10">
+      <input [ngModel]="firstName" (ngModelChange)="firstName = $event" type="text"
+             class="form-control font-weight-light" id="firstName" value="{{firstName}}">
+    </div>
+  </div>
+
+  <div class="my-3 row">
+    <label for="lastName" class="col-sm-2 col-form-label font-weight-bold">Last Name</label>
+    <div class="col-sm-10">
+      <input [ngModel]="lastName" (ngModelChange)="lastName = $event" type="text" class="form-control font-weight-light"
+             id="lastName" value="{{lastName}}}">
+    </div>
+  </div>
+
+  <div class="my-3 row">
+    <label for="bio" class="col-sm-2 col-form-label font-weight-bold">Bio</label>
+    <div class="col-sm-10">
+      <textarea [ngModel]="bio" (ngModelChange)="bio = $event" class="form-control font-weight-light" id="bio"
+                rows="3">{{bio}}</textarea>
+    </div>
+  </div>
+
+  <button class="btn btn-info col-md-6 col-lg-2 align-self-end" type="button" (click)="onUpdateProfile()">Update Profile</button>
+
+  <div class="row mt-5 justify-content-center">
+    <app-alert class="mt-auto"></app-alert>
+  </div>
+
+</div>

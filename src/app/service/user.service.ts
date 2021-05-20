@@ -3,7 +3,6 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
-import {RoleEnum} from '../model/role-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +68,20 @@ export class UserService {
 
   setUserRoles(userId: number, roles: Array<any>): Observable<any>{
     return this.http.put(AppUrl.SET_ROLES + '/' + userId, roles).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateAvatar(file: any): Observable<any>{
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.put(AppUrl.PROFILE_AVATAR, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateProfile(profile: any): Observable<any>{
+    return this.http.put(AppUrl.PROFILE, profile).pipe(
       catchError(this.handleError)
     );
   }

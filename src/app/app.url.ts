@@ -12,6 +12,7 @@ export class AppUrl {
   public static readonly NEW_TOKEN = AppUrl.ANONYMOUS + '/users/new-token';
 
   public static readonly PROFILE = AppUrl.CONSUMER + '/profile';
+  public static readonly PROFILE_AVATAR = AppUrl.CONSUMER + '/profile/avatar';
 
   public static readonly USER_COUNT = AppUrl.ADMIN + '/user/count';
   public static readonly MUSIC_COUNT = AppUrl.ADMIN + '/music/count';

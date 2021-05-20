@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { AlertComponent } from './alert/alert.component';
 import { UsersComponent } from './users/users.component';
 import { RoleComponent } from './role/role.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RoleComponent } from './role/role.component';
     HomeComponent,
     AlertComponent,
     UsersComponent,
-    RoleComponent
+    RoleComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
