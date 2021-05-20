@@ -6,6 +6,7 @@ import {HomeComponent} from './home/home.component';
 import {UsersComponent} from './users/users.component';
 import {RoleComponent} from './role/role.component';
 import {ProfileComponent} from './profile/profile.component';
+import {LanguageComponent} from './language/language.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AppGuardGuard] },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent, canActivate: [AppGuardGuard] },
   { path: 'roles', component: RoleComponent, canActivate: [AppGuardGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AppGuardGuard] },
+  { path: 'languages', component: LanguageComponent, canActivate: [AppGuardGuard] },
 ];
 
 @NgModule({

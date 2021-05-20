@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
@@ -17,6 +17,30 @@ export class LanguageService {
         catchError(this.handleError)
       );
   }
+
+  getLanguages(page?: string): Observable<any>{
+    let httpParams = new HttpParams();
+    if (page && page !== ''){
+      httpParams = httpParams.set('page', page);
+    }
+    const options = {
+      params : httpParams
+    };
+    return this.http.get(AppUrl.LANGUAGE, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  addLanguage(language: string): Observable<any>{
+    const formData = new FormData();
+    formData.append('name', language);
+    return this.http.post(AppUrl.LANGUAGE, formData)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

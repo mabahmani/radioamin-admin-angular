@@ -12,6 +12,7 @@ import { AlertComponent } from './alert/alert.component';
 import { UsersComponent } from './users/users.component';
 import { RoleComponent } from './role/role.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LanguageComponent } from './language/language.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
     AlertComponent,
     UsersComponent,
     RoleComponent,
-    ProfileComponent
+    ProfileComponent,
+    LanguageComponent
   ],
   imports: [
     BrowserModule,

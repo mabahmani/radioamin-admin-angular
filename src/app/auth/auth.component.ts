@@ -30,13 +30,13 @@ export class AuthComponent implements OnInit {
         },
         error => {
           try {
+            console.log(JSON.stringify(error));
             const errorResponse = error as ErrorResponse;
             for (const error of errorResponse.errors) {
               this.alertService.alert(error.message, error.errorType);
             }
           } catch (e) {
             this.alertService.alert(error.message, '');
-
           }
 
         });

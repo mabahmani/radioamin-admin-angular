@@ -1,0 +1,51 @@
+<div class="row mt-5 justify-content-center">
+  <app-alert class="mt-auto"></app-alert>
+</div>
+
+<div *ngIf="show">
+  <div class="row">
+        <div class="col">
+          <label class="my-1 mr-2">Add New Language</label>
+          <div class="input-group my-3">
+            <input type="text" #addLanguage class="form-control" placeholder="Language Name" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="onAddLanguage(addLanguage.value)" type="button" id="button-addon2">Add</button>
+            </div>
+          </div>
+        </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr class="text-center">
+          <th scope="col">Id</th>
+          <th scope="col">Language</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let language of languages" class="text-center">
+          <th scope="row">{{language.id}}</th>
+          <td><p class="font-weight-light text-capitalize">{{language.name}}</p></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <nav aria-label="..." class="py-5">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="first">
+          <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let item of [].constructor(totalPages); let i = index" class="page-item"
+            [class.active]="i === currentPage" aria-current="page">
+          <span *ngIf="currentPage === i" class="page-link" (click)="onClickPage(i)">{{i + 1}}</span>
+          <a *ngIf="currentPage !== i" class="page-link" (click)="onClickPage(i)" [routerLink]="">{{i + 1}}</a>
+        </li>
+        <li class="page-item" [class.disabled]="last">
+          <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage + 1)">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>

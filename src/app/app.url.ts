@@ -14,17 +14,31 @@ export class AppUrl {
   public static readonly PROFILE = AppUrl.CONSUMER + '/profile';
   public static readonly PROFILE_AVATAR = AppUrl.CONSUMER + '/profile/avatar';
 
-  public static readonly USER_COUNT = AppUrl.ADMIN + '/user/count';
   public static readonly MUSIC_COUNT = AppUrl.ADMIN + '/music/count';
+
+
   public static readonly SINGER_COUNT = AppUrl.ADMIN + '/singer/count';
+
+
   public static readonly ALBUM_COUNT = AppUrl.ADMIN + '/album/count';
+
+
   public static readonly GENRE_COUNT = AppUrl.ADMIN + '/genre/count';
+
+
   public static readonly MOOD_COUNT = AppUrl.ADMIN + '/mood/count';
+
+
   public static readonly LANGUAGE_COUNT = AppUrl.ADMIN + '/language/count';
+  public static readonly LANGUAGE = AppUrl.ADMIN + '/language';
+
+
   public static readonly PLAYLIST_COUNT = AppUrl.ADMIN + '/playlist/count';
 
+  public static readonly USER_COUNT = AppUrl.ADMIN + '/user/count';
   public static readonly USERS = AppUrl.DEVELOPER + '/users';
   public static readonly USERS_CHANGE_ACTIVATION = AppUrl.DEVELOPER + '/users/changeActivate';
+
   public static readonly ROLES = AppUrl.DEVELOPER + '/role';
   public static readonly SET_ROLES = AppUrl.DEVELOPER + '/users/userRoles';
 }
