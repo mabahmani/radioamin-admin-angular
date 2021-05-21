@@ -15,6 +15,7 @@ export class LanguageComponent implements OnInit {
   first: any;
   last: any;
   show: any;
+  selectedLanguage: any;
 
   constructor(private languageService: LanguageService, private alertService: AlertService) {
   }
@@ -77,6 +78,59 @@ export class LanguageComponent implements OnInit {
     this.languageService.addLanguage(language).subscribe(
       response => {
         this.languages.push(response.data);
+      },
+      error => {
+        try {
+          const errorResponse = error as ErrorResponse;
+          // tslint:disable-next-line:no-shadowed-variable
+          for (const error of errorResponse.errors) {
+            this.alertService.alert(error.message, error.errorType);
+          }
+        } catch (e) {
+          this.alertService.alert(error.message, '');
+
+        }
+
+      }
+    );
+  }
+
+  onSelect(language: any): void{
+    this.selectedLanguage = language;
+  }
+
+  onClickEditLanguage(language: string): void {
+
+    this.languageService.editLanguage(language, this.selectedLanguage.id).subscribe(
+      response => {
+        console.log(response);
+        this.selectedLanguage.name = language;
+      },
+      error => {
+        try {
+          const errorResponse = error as ErrorResponse;
+          // tslint:disable-next-line:no-shadowed-variable
+          for (const error of errorResponse.errors) {
+            this.alertService.alert(error.message, error.errorType);
+          }
+        } catch (e) {
+          this.alertService.alert(error.message, '');
+
+        }
+
+      }
+    );
+  }
+
+  onClickDeleteLanguage(): void {
+    this.languageService.deleteLanguage(this.selectedLanguage.id).subscribe(
+      response => {
+        console.log(response);
+        for (const language of this.languages) {
+          if (this.selectedLanguage.id === language.id) {
+            this.languages.splice(this.languages.indexOf(language), 1);
+          }
+        }
       },
       error => {
         try {

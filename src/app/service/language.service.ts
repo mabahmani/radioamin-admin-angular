@@ -41,6 +41,22 @@ export class LanguageService {
       );
   }
 
+  editLanguage(language: string, id: string): Observable<any>{
+    const formData = new FormData();
+    formData.append('name', language);
+    return this.http.put(AppUrl.LANGUAGE + '/' + id, formData)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteLanguage(id: string): Observable<any>{
+    return this.http.delete(AppUrl.LANGUAGE + '/' + id)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
