@@ -24,6 +24,7 @@ export class AppUrl {
 
 
   public static readonly GENRE_COUNT = AppUrl.ADMIN + '/genre/count';
+  public static readonly GENRE = AppUrl.ADMIN + '/genre';
 
 
   public static readonly MOOD_COUNT = AppUrl.ADMIN + '/mood/count';

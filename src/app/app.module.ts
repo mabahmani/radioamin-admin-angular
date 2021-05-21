@@ -13,6 +13,7 @@ import { UsersComponent } from './users/users.component';
 import { RoleComponent } from './role/role.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LanguageComponent } from './language/language.component';
+import { GenreComponent } from './genre/genre.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LanguageComponent } from './language/language.component';
     UsersComponent,
     RoleComponent,
     ProfileComponent,
-    LanguageComponent
+    LanguageComponent,
+    GenreComponent
   ],
   imports: [
     BrowserModule,
