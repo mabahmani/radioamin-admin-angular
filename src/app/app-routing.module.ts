@@ -8,6 +8,7 @@ import {RoleComponent} from './role/role.component';
 import {ProfileComponent} from './profile/profile.component';
 import {LanguageComponent} from './language/language.component';
 import {GenreComponent} from './genre/genre.component';
+import {MoodComponent} from './mood/mood.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AppGuardGuard] },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AppGuardGuard] },
   { path: 'languages', component: LanguageComponent, canActivate: [AppGuardGuard] },
   { path: 'genres', component: GenreComponent, canActivate: [AppGuardGuard] },
+  { path: 'moods', component: MoodComponent, canActivate: [AppGuardGuard] },
 ];
 
 @NgModule({

@@ -28,6 +28,7 @@ export class AppUrl {
 
 
   public static readonly MOOD_COUNT = AppUrl.ADMIN + '/mood/count';
+  public static readonly MOOD = AppUrl.ADMIN + '/mood';
 
 
   public static readonly LANGUAGE_COUNT = AppUrl.ADMIN + '/language/count';

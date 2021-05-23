@@ -128,6 +128,7 @@ export class GenreComponent implements OnInit {
         for (const genre of this.genres) {
           if (this.selectedGenre.id === genre.id) {
             this.genres.splice(this.genres.indexOf(genre), 1);
+            break;
           }
         }
       },

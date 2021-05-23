@@ -101,6 +101,7 @@ export class UsersComponent implements OnInit {
       if (uRole.role === role.role) {
         this.selectedUser.userRoles.splice(this.selectedUser.userRoles.indexOf(uRole), 1);
         removed = true;
+        break;
       }
     }
 

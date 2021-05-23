@@ -1,0 +1,133 @@
+<div class="row mt-5 justify-content-center">
+  <app-alert class="mt-auto"></app-alert>
+</div>
+
+<div *ngIf="show" class="d-flex flex-column">
+  <div class="row my-4">
+    <div class="col-sm">
+      <label class="my-1 mr-2 h6">Add New Mood</label>
+      <div class="input-group my-3">
+        <input type="text" #addMood class="form-control" placeholder="Mood Name" aria-label="Recipient's username">
+      </div>
+    </div>
+    <div class="col-sm my-1 mr-2" style="max-height: 250px; overflow: auto">
+      <div class="h6">All Genres</div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let genre of allGenres" class="list-group-item p-1 d-flex justify-content-between"><small>{{genre.name}}</small>
+          <a class="text-info" [routerLink]="" (click)="onClickAddGenre(genre)"><small>Add</small></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm my-1 mr-2" style="max-height: 250px; overflow: auto">
+      <div class="h6">Selected Genres</div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let genre of selectedGenres" class="list-group-item p-1 d-flex justify-content-between"><small>{{genre.name}}</small>
+          <a class="text-danger" [routerLink]="" (click)="onClickRemoveGenre(genre)"><small>Remove</small></a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <button class="btn btn-info my-5 align-self-end" (click)="onCreateMood(addMood.value)">Create Mood</button>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr class="text-center">
+        <th scope="col">Id</th>
+        <th scope="col">Mood</th>
+        <th scope="col">Mood's Genres</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let mood of moods" class="text-center">
+        <th scope="row">{{mood.id}}</th>
+        <td><p class="font-weight-light text-capitalize">{{mood.name}}</p></td>
+        <td><span *ngFor="let genre of mood.genres" class="badge badge-light">{{genre.name}}</span></td>
+        <td><a class="font-weight-light text-capitalize text-info text-decoration-none" (click)="onSelect(mood)" [routerLink]="" data-toggle="modal" data-target="#editModal">Edit</a></td>
+        <td><a class="font-weight-light text-capitalize text-danger text-decoration-none" (click)="onSelect(mood)" [routerLink]="" data-toggle="modal" data-target="#deleteModal">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav aria-label="..." class="py-5">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="first">
+        <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let item of [].constructor(totalPages); let i = index" class="page-item"
+          [class.active]="i === currentPage" aria-current="page">
+        <span *ngIf="currentPage === i" class="page-link" (click)="onClickPage(i)">{{i + 1}}</span>
+        <a *ngIf="currentPage !== i" class="page-link" (click)="onClickPage(i)" [routerLink]="">{{i + 1}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="last">
+        <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Language</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          <input type="text" class="form-control" #languageInput value="{{selectedMood === null || selectedMood === undefined ? '':selectedMood.name}}">
+        </label>
+        <div class="col-sm my-1 mr-2" style="max-height: 250px; overflow: auto">
+          <div class="h6">All Genres</div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let genre of allGenresEditModal" class="list-group-item p-1 d-flex justify-content-between"><small>{{genre.name}}</small>
+              <a class="text-info" [routerLink]="" (click)="onClickAddGenreEditModal(genre)"><small>Add</small></a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm my-1 mr-2" style="max-height: 250px; overflow: auto">
+          <div class="h6">Selected Genres</div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let genre of selectedGenresEditModal" class="list-group-item p-1 d-flex justify-content-between"><small>{{genre.name}}</small>
+              <a class="text-danger" [routerLink]="" (click)="onClickRemoveGenreEditModal(genre)"><small>Remove</small></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickEditMood(languageInput.value)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Language</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          <input type="text" class="form-control" readonly disabled #languageInput value="{{selectedMood === null || selectedMood === undefined ? '':selectedMood.name}}">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onClickDeleteMood()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

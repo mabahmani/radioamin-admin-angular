@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
@@ -13,6 +13,49 @@ export class MoodService {
 
   getMoodCount(): Observable<any>{
     return this.http.get<any>(AppUrl.MOOD_COUNT)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getMoods(page?: string): Observable<any>{
+    let httpParams = new HttpParams();
+    if (page && page !== ''){
+      httpParams = httpParams.set('page', page);
+    }
+    const options = {
+      params : httpParams
+    };
+    return this.http.get(AppUrl.MOOD, options)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  addMood(mood: string, genres: Array<any>): Observable<any>{
+    const moodReq = {
+      name: mood,
+      genres,
+    };
+    return this.http.post(AppUrl.MOOD, moodReq)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  editMood(mood: string, id: string, genres: Array<any>): Observable<any>{
+    const moodReq = {
+      name: mood,
+      genres,
+    };
+    return this.http.put(AppUrl.MOOD + '/' + id, moodReq)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteMood(id: string): Observable<any>{
+    return this.http.delete(AppUrl.MOOD + '/' + id)
       .pipe(
         catchError(this.handleError)
       );

@@ -129,6 +129,7 @@ export class LanguageComponent implements OnInit {
         for (const language of this.languages) {
           if (this.selectedLanguage.id === language.id) {
             this.languages.splice(this.languages.indexOf(language), 1);
+            break;
           }
         }
       },

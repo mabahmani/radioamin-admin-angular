@@ -14,6 +14,7 @@ import { RoleComponent } from './role/role.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LanguageComponent } from './language/language.component';
 import { GenreComponent } from './genre/genre.component';
+import { MoodComponent } from './mood/mood.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { GenreComponent } from './genre/genre.component';
     RoleComponent,
     ProfileComponent,
     LanguageComponent,
-    GenreComponent
+    GenreComponent,
+    MoodComponent
   ],
   imports: [
     BrowserModule,
