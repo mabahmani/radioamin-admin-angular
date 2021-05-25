@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LanguageComponent } from './language/language.component';
 import { GenreComponent } from './genre/genre.component';
 import { MoodComponent } from './mood/mood.component';
+import { SingersComponent } from './singers/singers.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MoodComponent } from './mood/mood.component';
     ProfileComponent,
     LanguageComponent,
     GenreComponent,
-    MoodComponent
+    MoodComponent,
+    SingersComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@ export class AppUrl {
 
 
   public static readonly SINGER_COUNT = AppUrl.ADMIN + '/singer/count';
+  public static readonly SINGER = AppUrl.ADMIN + '/singer';
 
 
   public static readonly ALBUM_COUNT = AppUrl.ADMIN + '/album/count';
