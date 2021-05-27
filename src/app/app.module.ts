@@ -16,6 +16,7 @@ import { LanguageComponent } from './language/language.component';
 import { GenreComponent } from './genre/genre.component';
 import { MoodComponent } from './mood/mood.component';
 import { SingersComponent } from './singers/singers.component';
+import { AlbumsComponent } from './albums/albums.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SingersComponent } from './singers/singers.component';
     LanguageComponent,
     GenreComponent,
     MoodComponent,
-    SingersComponent
+    SingersComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,

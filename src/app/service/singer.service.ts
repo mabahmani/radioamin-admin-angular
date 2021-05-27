@@ -47,6 +47,12 @@ export class SingerService {
     );
   }
 
+  getAllSingers(): Observable<any> {
+    return this.http.get<any>(AppUrl.SINGER_ALL).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   createSinger(singerName: any, avatarFile: any): Observable<any> {
     const formData = new FormData();
     formData.append('name', singerName);

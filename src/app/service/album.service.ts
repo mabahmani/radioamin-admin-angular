@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AppUrl} from '../app.url';
 import {catchError} from 'rxjs/operators';
@@ -13,6 +13,63 @@ export class AlbumService {
 
   getAlbumCount(): Observable<any>{
     return this.http.get<any>(AppUrl.ALBUM_COUNT)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getAlbums(name?: string, sort?: string, direction?: string, page?: string, size?: string): Observable<any>{
+    let httpParams = new HttpParams();
+    if (name && name !== '') {
+      httpParams = httpParams.set('name', name);
+    }
+    if (direction && direction !== 'null') {
+      httpParams = httpParams.set('direction', direction);
+    }
+    if (page && page !== 'null') {
+      httpParams = httpParams.set('page', page);
+    }
+    if (size && size !== 'null') {
+      httpParams = httpParams.set('size', size);
+    }
+    if (sort && sort !== 'null') {
+      httpParams = httpParams.set('sort', sort);
+    }
+    const options = {
+      params: httpParams
+    };
+    console.log(httpParams);
+    return this.http.get<any>(AppUrl.ALBUM, options).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  createAlbum(albumName: any, singerId: any, releaseYear: any, coverFile: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('name', albumName);
+    formData.append('cover', coverFile);
+    formData.append('singerId', singerId);
+    formData.append('releaseYear', releaseYear);
+    return this.http.post<any>(AppUrl.ALBUM, formData)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  editAlbum(albumName?: any, singerId?: any, releaseYear?: any, coverFile?: any, albumId?: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('name', albumName);
+    formData.append('cover', coverFile);
+    formData.append('singerId', singerId);
+    formData.append('releaseYear', releaseYear);
+    return this.http.put<any>(AppUrl.ALBUM + '/' + albumId, formData)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteAlbum(albumId?: any): Observable<any> {
+    return this.http.delete<any>(AppUrl.ALBUM + '/' + albumId)
       .pipe(
         catchError(this.handleError)
       );
