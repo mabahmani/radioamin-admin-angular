@@ -44,6 +44,12 @@ export class AlbumService {
     );
   }
 
+  getAllAlbums(): Observable<any>{
+    return this.http.get<any>(AppUrl.ALBUM_ALL).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   createAlbum(albumName: any, singerId: any, releaseYear: any, coverFile: any): Observable<any> {
     const formData = new FormData();
     formData.append('name', albumName);

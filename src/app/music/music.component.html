@@ -1,0 +1,285 @@
+<div class="row mt-5 justify-content-center">
+  <app-alert class="mt-auto"></app-alert>
+</div>
+
+<div *ngIf="show">
+  <div class="row">
+    <div class="col-sm">
+      <label class="my-1 mr-2">Add New Music</label>
+      <div class="input-group my-3">
+        <input type="text" #addMusic class="form-control" placeholder="Music Name" aria-label="Recipient's username" aria-describedby="button-addon2">
+      </div>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2">Set Cover</label>
+      <div class="input-group my-3">
+        <div class="custom-file mb-3">
+          <input type="file" class="custom-file-input" id="musicCover" accept="image/jpeg, image/png" required (change)="setCover($event)">
+          <label class="custom-file-label" for="musicCover">{{coverName}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="typeSelect">Type</label>
+      <select class="custom-select my-3 mr-sm-2" id="typeSelect" #typeSelect (change)="onSelectType(typeSelect.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let type of types" [value]="type">{{type}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="albumSelect">Album</label>
+      <select class="custom-select my-3 mr-sm-2" id="albumSelect" #albumSelect (change)="onSelectAlbum(albumSelect.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let album of albums" [value]="album.id">{{album.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="singerSelect">Singer</label>
+      <select class="custom-select my-3 mr-sm-2" id="singerSelect" #singerSelect (change)="onSelectSinger(singerSelect.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let singer of singers" [value]="singer.id">{{singer.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="languageSelect">Language</label>
+      <select class="custom-select my-3 mr-sm-2" id="languageSelect" #languageSelect (change)="onSelectLanguage(languageSelect.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-info my-5" (click)="onCreateMusic(addMusic.value)">Draft Music</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm col-md-8 col-lg-4">
+      <label class="my-1 mr-2">Music</label>
+      <div class="input-group my-3">
+        <input type="text" #musicFilter class="form-control" placeholder="Find by Music" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="onFilterMusic(musicFilter.value)" type="button" id="button-addon2">Find</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="sortFilter">Sort</label>
+      <select class="custom-select my-3 mr-sm-2" #sortFilter id="sortFilter" (change)="onFilterSort(sortFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let sort of sorts" [value]="sort" >{{sort}}</option>
+      </select>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="directionFilter">Direction</label>
+      <select class="custom-select my-3 mr-sm-2" #directionFilter id="directionFilter" (change)="onFilterDirection(directionFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let direction of directions" [value]="direction" >{{direction}}</option>
+      </select>
+    </div>
+    <div class="col-sm">
+      <label class="my-1 mr-2" for="sizeFilter">Size</label>
+      <select class="custom-select my-3 mr-sm-2" #sizeFilter id="sizeFilter" (change)="onFilterSize(sizeFilter.value)">
+        <option selected [value]="null">Choose...</option>
+        <option *ngFor="let size of sizes" [value]="size" >{{size}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr class="text-center">
+        <th scope="col">Id</th>
+        <th scope="col">Cover</th>
+        <th scope="col">Music</th>
+        <th scope="col">Published</th>
+        <th scope="col">Type</th>
+        <th scope="col">Musics</th>
+        <th scope="col">Album</th>
+        <th scope="col">Singer</th>
+        <th scope="col">Language</th>
+        <th scope="col">Genres</th>
+        <th scope="col">Lyric</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let music of musics" class="text-center">
+        <th scope="row">{{music.id}}</th>
+        <td>
+          <img *ngIf="music.cover != null else defaultCover"
+               src="{{music.cover.url}}" alt="avatar" width="64" height="64" class="rounded-circle">
+          <ng-template #defaultCover>
+            <img src="assets/ra.svg" alt="avatar" width="32" height="32" class="rounded-circle"></ng-template>
+        </td>
+        <td><p class="font-weight-light text-capitalize">{{music.name}}</p></td>
+        <td>
+          <p class="font-weight-light text-capitalize">{{music.published}}</p>
+          <a class="text-decoration-none" [routerLink]="" (click)="changePublishState(music)"><small>Change</small></a>
+        </td>
+        <td><p class="font-weight-light text-capitalize">{{music.musicType}}</p></td>
+        <td>
+          <div class="d-flex flex-column">
+            <div *ngFor="let mUrl of music.musicUrls" class="d-flex justify-content-between">
+              <a  [href]="mUrl.url" class="text-decoration-none  mr-2 "><small>{{mUrl.musicUrlType}}</small></a>
+              <a  [routerLink]="" (click)="onClickDeleteMusicUrl(mUrl, music)" class="text-decoration-none text-danger"><small>&times;</small></a>
+            </div>
+            <a [routerLink]="" (click)="onSelect(music)" class="text-decoration-none" data-toggle="modal" data-target="#addMusicModal"><small>Add +</small></a>
+          </div>
+        </td>
+        <td><p class="font-weight-light text-capitalize">{{music.album.name}}</p></td>
+        <td><p class="font-weight-light text-capitalize">{{music.singer.name}}</p></td>
+        <td><p class="font-weight-light text-capitalize">{{music.language.name}}</p></td>
+        <td>
+          <span *ngFor="let genre of music.genres" class="badge badge-light">{{genre.name}}</span>
+          <div class="row justify-content-center">
+            <a [routerLink]="" (click)="onSelect(music)" class="text-decoration-none" data-toggle="modal" data-target="#addGenreModal"><small>Add +</small></a>
+          </div>
+        </td>
+        <td><a [routerLink]="" (click)="onSelect(music)" class="text-decoration-none" data-toggle="modal" data-target="#addLyricModal" ><small>Change</small></a></td>
+        <td><a class="font-weight-light text-capitalize text-danger text-decoration-none" (click)="onSelect(music)" [routerLink]="" data-toggle="modal" data-target="#deleteModal">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav aria-label="..." class="py-5">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="first">
+        <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let item of [].constructor(totalPages); let i = index" class="page-item"
+          [class.active]="i === currentPage" aria-current="page">
+        <span *ngIf="currentPage === i" class="page-link" (click)="onClickPage(i)">{{i + 1}}</span>
+        <a *ngIf="currentPage !== i" class="page-link" (click)="onClickPage(i)" [routerLink]="">{{i + 1}}</a>
+      </li>
+      <li class="page-item" [class.disabled]="last">
+        <a class="page-link" [routerLink]="" (click)="onClickPage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addMusicModal" tabindex="-1" aria-labelledby="addMusicModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addMusicModalLabel">Add Music</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-sm">
+        <label class="my-1 mr-2" for="mTypeSelect">Type</label>
+        <select class="custom-select my-3 mr-sm-2" id="mTypeSelect" #mTypeSelect (change)="onSelectMusicType(mTypeSelect.value)">
+          <option selected [value]="null">{{selectedMusicType != null ? selectedMusicType : 'Choose...'}}</option>
+          <option *ngFor="let mType of (selectedMusic != null && selectedMusic.musicType === 'VOCAL') ? vocalTypes : videoTypes" [value]="mType">{{mType}}</option>
+        </select>
+      </div>
+      <div class="modal-body">
+        <div class="input-group my-3">
+          <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="selectMusicFile" accept="video/mp4, audio/mpeg" required (change)="selectMusicFile($event)">
+            <label class="custom-file-label" for="selectMusicFile">{{musicFileName}}</label>
+          </div>
+        </div>
+        <div *ngIf="showProgress" class="progress mb-4">
+          <div class="progress-bar" role="progressbar" [style.width]="progress + '%'" aria-valuemin="0" aria-valuemax="100">{{progress+'%'}}</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onClickUploadMusic()">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addGenreModal" tabindex="-1" aria-labelledby="addGenreModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addGenreModalLabel">Add Genre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-sm my-1 mr-2" style="max-height: 250px; overflow: auto">
+          <div class="h6">All Genres</div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let genre of allGenresEditModal" class="list-group-item p-1 d-flex justify-content-between"><small>{{genre.name}}</small>
+              <a class="text-info" [routerLink]="" (click)="onClickAddGenreEditModal(genre)"><small>Add</small></a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm my-1 mr-2" style="max-height: 250px; overflow: auto">
+          <div class="h6">Selected Genres</div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let genre of selectedGenresEditModal" class="list-group-item p-1 d-flex justify-content-between"><small>{{genre.name}}</small>
+              <a class="text-danger" [routerLink]="" (click)="onClickRemoveGenreEditModal(genre)"><small>Remove</small></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickAddGenres()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addLyricModal" tabindex="-1" aria-labelledby="addLyricModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLyricModalLabel">Add Lyric</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          <textarea class="form-control" #lyricInput
+                    value="{{selectedMusic === null || selectedMusic === undefined ? '':selectedMusic.lyric}}"></textarea>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickSaveLyric(lyricInput.value)">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Music</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>
+          <input type="text" class="form-control" readonly disabled value="{{selectedMusic === null || selectedMusic === undefined ? '':selectedMusic.name}}">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onClickDeleteMusic()">Delete</button>
+      </div>
+    </div>
+  </div>

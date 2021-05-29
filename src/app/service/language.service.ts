@@ -32,6 +32,13 @@ export class LanguageService {
       );
   }
 
+  getAllLanguages(): Observable<any>{
+    return this.http.get(AppUrl.LANGUAGE_ALL)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   addLanguage(language: string): Observable<any>{
     const formData = new FormData();
     formData.append('name', language);

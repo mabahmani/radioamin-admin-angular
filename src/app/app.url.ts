@@ -15,6 +15,12 @@ export class AppUrl {
   public static readonly PROFILE_AVATAR = AppUrl.CONSUMER + '/profile/avatar';
 
   public static readonly MUSIC_COUNT = AppUrl.ADMIN + '/music/count';
+  public static readonly MUSIC = AppUrl.ADMIN + '/music';
+  public static readonly MUSIC_UPLOAD = AppUrl.ADMIN + '/music/upload';
+  public static readonly MUSIC_GENRE = AppUrl.ADMIN + '/music/genre';
+  public static readonly MUSIC_DELETE_FILE = AppUrl.ADMIN + '/music/deleteMusic';
+  public static readonly MUSIC_PUBLISH = AppUrl.ADMIN + '/music/publish';
+  public static readonly MUSIC_LYRIC = AppUrl.ADMIN + '/music/lyric';
 
 
   public static readonly SINGER_COUNT = AppUrl.ADMIN + '/singer/count';
@@ -24,10 +30,12 @@ export class AppUrl {
 
   public static readonly ALBUM_COUNT = AppUrl.ADMIN + '/album/count';
   public static readonly ALBUM = AppUrl.ADMIN + '/album';
+  public static readonly ALBUM_ALL = AppUrl.ADMIN + '/album/all';
 
 
   public static readonly GENRE_COUNT = AppUrl.ADMIN + '/genre/count';
   public static readonly GENRE = AppUrl.ADMIN + '/genre';
+  public static readonly GENRE_ALL = AppUrl.ADMIN + '/genre/all';
 
 
   public static readonly MOOD_COUNT = AppUrl.ADMIN + '/mood/count';
@@ -36,6 +44,7 @@ export class AppUrl {
 
   public static readonly LANGUAGE_COUNT = AppUrl.ADMIN + '/language/count';
   public static readonly LANGUAGE = AppUrl.ADMIN + '/language';
+  public static readonly LANGUAGE_ALL = AppUrl.ADMIN + '/language/all';
 
 
   public static readonly PLAYLIST_COUNT = AppUrl.ADMIN + '/playlist/count';

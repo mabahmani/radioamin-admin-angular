@@ -32,6 +32,13 @@ export class GenreService {
       );
   }
 
+  getAllGenres(): Observable<any>{
+    return this.http.get(AppUrl.GENRE_ALL)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   addGenre(Genre: string): Observable<any>{
     const formData = new FormData();
     formData.append('name', Genre);

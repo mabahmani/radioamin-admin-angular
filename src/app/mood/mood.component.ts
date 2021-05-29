@@ -27,10 +27,10 @@ export class MoodComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.genreService.getGenres()
+    this.genreService.getAllGenres()
       .subscribe(
         response => {
-          this.allGenres = response.data.content;
+          this.allGenres = response.data;
         },
         error => {
           try {

@@ -17,6 +17,7 @@ import { GenreComponent } from './genre/genre.component';
 import { MoodComponent } from './mood/mood.component';
 import { SingersComponent } from './singers/singers.component';
 import { AlbumsComponent } from './albums/albums.component';
+import { MusicComponent } from './music/music.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AlbumsComponent } from './albums/albums.component';
     GenreComponent,
     MoodComponent,
     SingersComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    MusicComponent
   ],
   imports: [
     BrowserModule,

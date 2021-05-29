@@ -11,6 +11,7 @@ import {GenreComponent} from './genre/genre.component';
 import {MoodComponent} from './mood/mood.component';
 import {SingersComponent} from './singers/singers.component';
 import {AlbumsComponent} from './albums/albums.component';
+import {MusicComponent} from './music/music.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AppGuardGuard] },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'moods', component: MoodComponent, canActivate: [AppGuardGuard] },
   { path: 'singers', component: SingersComponent, canActivate: [AppGuardGuard] },
   { path: 'albums', component: AlbumsComponent, canActivate: [AppGuardGuard] },
+  { path: 'musics', component: MusicComponent, canActivate: [AppGuardGuard] },
 ];
 
 @NgModule({
